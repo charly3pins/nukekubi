@@ -1,13 +1,17 @@
 package model
 
-import "time"
+import (
+	"time"
+
+	"github.com/a-h/templ"
+)
 
 type Post struct {
-	Title       string
-	Author      string
-	Description string
-	Date        time.Time
-	Tags        []string
-	Slug        string
-	Content     string
+	Title       string    `toml:"title"`
+	Author      string    `toml:"author"`
+	Description string    `toml:"description"`
+	Date        time.Time `toml:"date"`
+	Tags        []string  `toml:"tags"`
+	Slug        string    `toml:"slug"`
+	Content     templ.Component
 }

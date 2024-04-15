@@ -1,11 +1,35 @@
 package view
 
-import "github.com/charly3pins/nukekubi/internal/model"
+import (
+	"log"
+
+	"github.com/charly3pins/nukekubi/internal/model"
+)
+
+func Unsafe(html string) templ.Component {
+	return templ.ComponentFunc(func(ctx context.Context, w io.Writer) (err error) {
+		_, err = io.WriteString(w, html)
+		if err != nil {
+			log.Printf("error writting string in Unsafe for [%s]: %s", html, err)
+		}
+		return
+	})
+}
 
 templ Blog(posts []model.Post) {
 	<ul>
 	for _, post := range posts {
 		<li>{post.Title}</li>
+		<li>{post.Author}</li>
+		<li>{post.Description}</li>
+		<li>{post.Date.String()}</li>
+		<li>{post.Slug}</li>
+		<ul>
+		for _, tag := range post.Tags {
+			<li>{tag}</li>
+		}
+		</ul>
+		<li>@post.Content</li>
 	}
 	</ul>
 }
