@@ -1,0 +1,11 @@
+package view
+
+import "github.com/charly3pins/nukekubi/internal/model"
+
+templ Blog(posts []model.Post) {
+	<ul>
+	for _, post := range posts {
+		<li>{post.Title}</li>
+	}
+	</ul>
+}

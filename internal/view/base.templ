@@ -1,0 +1,29 @@
+package view
+
+templ head() {
+	<head>
+		<title>Nukekubi CMS</title>
+	</head>
+}
+
+templ nav() {
+	<nav>
+		<a href="/">Home</a>
+	</nav>
+}
+
+templ footer() {
+	<footer>Nukekubi; All rights reserved.</footer>
+}
+
+templ Base(content templ.Component) {
+	<html>
+		@head()
+		<body>
+			@nav()
+			<h1>Welcome to Nukekubi CMS</h1>
+			@content
+			@footer()
+		</body>
+	</html>
+}
