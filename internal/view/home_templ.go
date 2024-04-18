@@ -23,7 +23,7 @@ func Home() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<p>Nukekubi is a headless CMS written in Go(lang).</p>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"max-w-md m-5 mx-auto overflow-hidden bg-red-300 shadow-md rounded-xl md:max-w-2xl\"><div class=\"md:flex\"><div class=\"md:flex-shrink-0\"><img class=\"object-cover w-full h-48 md:w-48\" src=\"/img/store.jpg\" alt=\"Nukekubi\"></div><div class=\"p-8\"><div class=\"text-sm font-semibold tracking-wide text-indigo-500 uppercase\">Nukekubi is a headless CMS written in Go(lang).</div><p class=\"mt-2 text-gray-500\">Visit our cool store and find the best products for you.</p></div></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

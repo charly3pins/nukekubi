@@ -14,5 +14,8 @@ func main() {
 	http.Handle("/", templ.Handler(view.Base(view.Home())))
 	http.HandleFunc("/blog", handler.Blog)
 
+	fileServer := http.FileServer(http.Dir("./static"))
+	http.Handle("/static/*", http.StripPrefix("/static/", fileServer))
+
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
