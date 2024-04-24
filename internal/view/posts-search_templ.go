@@ -10,23 +10,9 @@ import "context"
 import "io"
 import "bytes"
 
-import (
-	"log"
+import "github.com/charly3pins/nukekubi/internal/model"
 
-	"github.com/charly3pins/nukekubi/internal/model"
-)
-
-func Unsafe(html string) templ.Component {
-	return templ.ComponentFunc(func(ctx context.Context, w io.Writer) (err error) {
-		_, err = io.WriteString(w, html)
-		if err != nil {
-			log.Printf("error writting string in Unsafe for [%s]: %s", html, err)
-		}
-		return
-	})
-}
-
-func Blog(posts []model.Post) templ.Component {
+func PostSearch(posts []model.Post) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -39,10 +25,6 @@ func Blog(posts []model.Post) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex flex-col w-full max-w-4xl lg:max-w-5xl relative\"><div class=\"flex flex-row\"><section class=\"flex flex-col w-full md:w-2/3\" id=\"search-results\">")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
 		for _, post := range posts {
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<article class=\"flex flex-col gap-y-3 p-6 mt-6 mx-2 md:mx-0 rounded-lg shadow-md bg-white dark:bg-gray-700\"><h2 class=\"text-4xl font-semibold text-slate-800 dark:text-slate-200\"><a href=\"")
 			if templ_7745c5c3_Err != nil {
@@ -60,7 +42,7 @@ func Blog(posts []model.Post) templ.Component {
 			var templ_7745c5c3_Var3 string
 			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(post.Title)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/blog.templ`, Line: 25, Col: 130}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/posts-search.templ`, Line: 8, Col: 130}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {
@@ -73,7 +55,7 @@ func Blog(posts []model.Post) templ.Component {
 			var templ_7745c5c3_Var4 string
 			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(post.Description)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/blog.templ`, Line: 26, Col: 86}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/posts-search.templ`, Line: 9, Col: 86}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 			if templ_7745c5c3_Err != nil {
@@ -100,7 +82,7 @@ func Blog(posts []model.Post) templ.Component {
 				var templ_7745c5c3_Var6 string
 				templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(tag)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/blog.templ`, Line: 42, Col: 31}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/posts-search.templ`, Line: 25, Col: 31}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 				if templ_7745c5c3_Err != nil {
@@ -115,10 +97,6 @@ func Blog(posts []model.Post) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</section><aside class=\"hidden md:flex flex-col md:w-1/3 ml-3 top-0 sticky self-start\"><section class=\"pl-6 mt-6 w-full max-w-4xl lg:max-w-5xl\"><div class=\"flex\"><input type=\"text\" name=\"search\" id=\"search-input\" required=\"\" placeholder=\"Search post\" class=\"rounded-lg border border-gray-300 text-slate-800 focus:outline-none focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-3 dark:bg-slate-700 dark:border-slate-600 dark:placeholder-slate-400 dark:text-slate-200 dark:focus:ring-blue-500 dark:focus:border-blue-500\" hx-post=\"/search\" hx-trigger=\"input changed delay:500ms, search\" hx-target=\"#search-results\"></div></section><section class=\"flex flex-col w-full gap-y-3 pl-6 py-3 mt-6 text-slate-800 dark:text-slate-200\"><div class=\"flex flex-row\"><a class=\"flex flex-row\" href=\"/categories/\"><i class=\"h-6 w-6 flex-none\"><svg xmlns=\"http://www.w3.org/2000/svg\" class=\"icon icon-tabler icon-tabler-category-2\" viewBox=\"0 0 24 24\" stroke-width=\"2\" stroke=\"currentcolor\" fill=\"none\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path stroke=\"none\" d=\"M0 0h24v24H0z\" fill=\"none\"></path> <path d=\"M14 4h6v6h-6z\"></path> <path d=\"M4 14h6v6H4z\"></path> <path d=\"M17 17m-3 0a3 3 0 106 0 3 3 0 10-6 0\"></path> <path d=\"M7 7M4 7a3 3 0 106 0A3 3 0 104 7\"></path></svg></i><h2 class=\"pl-1 uppercase\">Categories</h2></a></div><ul class=\"flex flex-row flex-wrap\"><li class=\"mt-2 mr-2\"><a href=\"/categories/syntax/\" class=\"rounded px-2 py-1 text-sm text-slate-800 dark:text-slate-300 ring-1 ring-slate-900/5 dark:ring-slate-50/5 backdrop-blur bg-slate-50 dark:bg-gray-700\">Syntax</a></li><li class=\"mt-2 mr-2\"><a href=\"/categories/themes/\" class=\"rounded px-2 py-1 text-sm text-slate-800 dark:text-slate-300 ring-1 ring-slate-900/5 dark:ring-slate-50/5 backdrop-blur bg-slate-50 dark:bg-gray-700\">Themes</a></li></ul></section><section class=\"flex flex-col w-full gap-y-3 pl-6 py-3 mt-6 text-slate-800 dark:text-slate-200\"><div class=\"flex flex-row\"><a class=\"flex flex-row\" href=\"/series/\"><i class=\"h-6 w-6 flex-none\"><svg xmlns=\"http://www.w3.org/2000/svg\" class=\"icon icon-tabler icon-tabler-tags\" viewBox=\"0 0 24 24\" stroke-width=\"2\" stroke=\"currentcolor\" fill=\"none\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path stroke=\"none\" d=\"M0 0h24v24H0z\" fill=\"none\"></path> <path d=\"M3 8v4.172a2 2 0 00.586 1.414l5.71 5.71a2.41 2.41.0 003.408.0l3.592-3.592a2.41 2.41.0 000-3.408l-5.71-5.71A2 2 0 009.172 6H5A2 2 0 003 8z\"></path> <path d=\"M18 19l1.592-1.592a4.82 4.82.0 000-6.816L15 6\"></path> <path d=\"M7 10h-.01\"></path></svg></i><h2 class=\"pl-1 uppercase\">Series</h2></a></div><ul class=\"flex flex-row flex-wrap\"><li class=\"mt-2 mr-2\"><a href=\"/series/themes-guide/\" class=\"rounded px-2 py-1 text-sm text-slate-800 dark:text-slate-300 ring-1 ring-slate-900/5 dark:ring-slate-50/5 backdrop-blur bg-slate-50 dark:bg-gray-700\">Themes Guide</a></li></ul></section><section class=\"flex flex-col w-full gap-y-3 pl-6 py-3 mt-6 text-slate-800 dark:text-slate-200\"><div class=\"flex flex-row\"><a class=\"flex flex-row\" href=\"/tags/\"><i class=\"h-6 w-6 flex-none\"><svg xmlns=\"http://www.w3.org/2000/svg\" class=\"icon icon-tabler icon-tabler-hash\" viewBox=\"0 0 24 24\" stroke-width=\"2\" stroke=\"currentcolor\" fill=\"none\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path stroke=\"none\" d=\"M0 0h24v24H0z\" fill=\"none\"></path> <path d=\"M5 9h14\"></path> <path d=\"M5 15h14\"></path> <path d=\"M11 4 7 20\"></path> <path d=\"M17 4l-4 16\"></path></svg></i><h2 class=\"pl-1 uppercase\">Tags</h2></a></div><ul class=\"flex flex-row flex-wrap\"><li class=\"mt-2 mr-2\"><a href=\"/tags/go/\" class=\"rounded px-2 py-1 text-sm text-slate-800 dark:text-slate-300 ring-1 ring-slate-900/5 dark:ring-slate-50/5 backdrop-blur bg-slate-50 dark:bg-gray-700\">go</a></li></ul></section></aside></div><div class=\"flex flex-row justify-center mt-6 gap-2\"><a href=\"/page/2/\" class=\"flex flex-row text-base font-semibold rounded-md text-slate-700 dark:text-slate-300 bg-slate-200 dark:bg-gray-700 p-2 pl-3\"><span>Older posts</span> <i class=\"h-6 w-6 flex-none ml-1\"><svg xmlns=\"http://www.w3.org/2000/svg\" class=\"icon icon-tabler icon-tabler-caret-right\" viewBox=\"0 0 24 24\" stroke-width=\"2\" stroke=\"currentcolor\" fill=\"none\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path stroke=\"none\" d=\"M0 0h24v24H0z\" fill=\"none\"></path> <path d=\"M10 18l6-6-6-6v12\"></path></svg></i></a></div></div>")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
 		}
 		if !templ_7745c5c3_IsBuffer {
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteTo(templ_7745c5c3_W)

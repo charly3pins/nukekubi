@@ -13,6 +13,10 @@ import (
 func main() {
 	http.Handle("/", templ.Handler(view.Base(view.Home())))
 	http.HandleFunc("/blog", handler.Blog)
+	http.HandleFunc("/blog/{slug}", handler.Post)
+	http.HandleFunc("/posts/{slug}", handler.PostEdit)
+
+	http.HandleFunc("/search", handler.Search)
 
 	fileServer := http.FileServer(http.Dir("./static"))
 	http.Handle("/static/*", http.StripPrefix("/static/", fileServer))

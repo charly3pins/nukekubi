@@ -17,40 +17,42 @@ import (
 
 const contentDir = "internal/content"
 
-func Blog(rw http.ResponseWriter, r *http.Request) {
+var posts []model.Post
+
+func init() {
 	files, err := os.ReadDir(contentDir)
 	if err != nil {
 		log.Println("error reading directory", err)
-		rw.Write([]byte("Internal Error"))
 	}
 
-	posts := make([]model.Post, len(files))
-	for i, f := range files {
+	for _, f := range files {
 		openFile, err := os.Open(contentDir + "/" + f.Name())
 		if err != nil {
 			log.Printf("error opening file [%s]: %s", f.Name(), err)
-			rw.Write([]byte("Internal Error"))
 		}
 		content, err := io.ReadAll(openFile)
 		if err != nil {
 			log.Printf("error reading all file [%s]: %s", f.Name(), err)
-			rw.Write([]byte("Internal Error"))
 		}
 		var post model.Post
 		rest, err := frontmatter.Parse(strings.NewReader(string(content)), &post)
 		if err != nil {
 			log.Printf("error parsing content [%s]: %s", string(content), err)
-			rw.Write([]byte("Internal Error"))
 		}
 
 		var buf bytes.Buffer
 		err = goldmark.Convert(rest, &buf)
 		if err != nil {
 			log.Printf("error converting content to goldmark buffer: %s", err)
-			rw.Write([]byte("Internal Error"))
 		}
 		post.Content = view.Unsafe(buf.String())
-		posts[i] = post
+		if post.Slug == "" {
+			post.Slug = strings.Split(f.Name(), ".")[0]
+		}
+		posts = append(posts, post)
 	}
+}
+
+func Blog(rw http.ResponseWriter, r *http.Request) {
 	view.Base(view.Blog(posts)).Render(r.Context(), rw)
 }

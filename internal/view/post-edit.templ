@@ -1,0 +1,21 @@
+package view
+
+import "github.com/charly3pins/nukekubi/internal/model"
+
+templ PostEdit(post model.Post) {
+	<form>
+		<label class="text-white">Title</label>
+		<input type="text" value={post.Title}/>
+		<label class="text-white">Author</label>
+		<input type="text" value={post.Author}/>
+		<label class="text-white">Description</label>
+		<input type="text" value={post.Description}/>
+		<label class="text-white">Date</label>
+		<input type="text" value={post.Date}/>
+		
+		<label class="text-white">Slug</label>
+		<input type="text" value={post.Slug}/>
+		<label class="text-white">Content</label>
+		<textarea>{post.ContentRaw}</textarea>
+	</form>
+}
