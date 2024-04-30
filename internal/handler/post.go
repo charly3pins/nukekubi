@@ -11,7 +11,6 @@ func Post(rw http.ResponseWriter, r *http.Request) {
 	if slug == "" {
 		rw.Write([]byte("Bad Request: slug empty"))
 	}
-
 	for _, post := range posts {
 		if post.Slug == slug {
 			view.Base(view.Post(post)).Render(r.Context(), rw)

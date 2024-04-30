@@ -14,6 +14,8 @@ func main() {
 	http.Handle("/", templ.Handler(view.Base(view.Home())))
 	http.HandleFunc("/blog", handler.Blog)
 	http.HandleFunc("/blog/{slug}", handler.Post)
+	http.HandleFunc("GET /posts", handler.PostNewForm)
+	http.HandleFunc("POST /posts", handler.PostNew)
 	http.HandleFunc("/posts/{slug}", handler.PostEdit)
 
 	http.HandleFunc("/search", handler.Search)

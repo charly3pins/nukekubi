@@ -1,0 +1,22 @@
+package view
+
+templ PostNewForm() {
+<form action="/posts" method="post" class="text-white">
+  <fieldset>
+    <legend>NEW POST</legend>
+    <label>Title</label>
+    <input type="text" name="title" />
+    <label>Author</label>
+    <input type="text" name="author" />
+    <label>Description</label>
+    <input type="text" name="description" />
+    <label>Date</label>
+    <input type="text" name="date" />
+    <label>Slug</label>
+    <input type="text" name="slug" />
+    <label>Content</label>
+    <textarea name="content"></textarea>
+    <button type="submit">Create post</button>
+  </fieldset>
+</form>
+}

@@ -7,5 +7,7 @@ require (
 	github.com/a-h/templ v0.2.663 // indirect
 	github.com/adrg/frontmatter v0.2.0 // indirect
 	github.com/yuin/goldmark v1.7.1 // indirect
+	golang.org/x/mod v0.17.0 // indirect
+	golang.org/x/tools v0.20.0 // indirect
 	gopkg.in/yaml.v2 v2.3.0 // indirect
 )
