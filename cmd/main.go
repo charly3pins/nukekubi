@@ -16,8 +16,8 @@ func main() {
 	http.HandleFunc("/blog/{slug}", handler.Post)
 
 	// Manage posts
-	http.HandleFunc("GET /posts", handler.Posts)
-	http.HandleFunc("GET /posts/new", handler.PostNewForm)
+	http.HandleFunc("GET /admin", handler.Admin)
+	http.HandleFunc("GET /posts", handler.PostNewForm)
 	http.HandleFunc("POST /posts", handler.PostNew)
 	http.HandleFunc("/posts/{slug}", handler.PostEdit)
 

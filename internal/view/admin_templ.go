@@ -14,7 +14,7 @@ import (
 	"github.com/charly3pins/nukekubi/internal/model"
 )
 
-func Posts(posts []model.Post) templ.Component {
+func Admin(posts []model.Post) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -48,7 +48,7 @@ func Posts(posts []model.Post) templ.Component {
 			var templ_7745c5c3_Var3 string
 			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(post.Title)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/posts.templ`, Line: 14, Col: 64}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/admin.templ`, Line: 14, Col: 64}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {
@@ -61,7 +61,7 @@ func Posts(posts []model.Post) templ.Component {
 			var templ_7745c5c3_Var4 string
 			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(post.Description)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/posts.templ`, Line: 16, Col: 88}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/admin.templ`, Line: 16, Col: 88}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 			if templ_7745c5c3_Err != nil {
@@ -81,7 +81,7 @@ func Posts(posts []model.Post) templ.Component {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</section><aside class=\"hidden md:flex flex-col md:w-1/3 ml-3 top-0 sticky self-start\"><section class=\"flex flex-col w-full gap-y-3 pl-6 py-3 mt-6 text-slate-800 dark:text-slate-200\"><div class=\"flex flex-row\"><a class=\"flex flex-row\" href=\"/posts/new\"><i class=\"h-6 w-6 flex-none\"><svg xmlns=\"http://www.w3.org/2000/svg\" class=\"icon icon-tabler icon-tabler-category-2\" viewBox=\"0 0 24 24\" stroke-width=\"2\" stroke=\"currentcolor\" fill=\"none\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path stroke=\"none\" d=\"M0 0h24v24H0z\" fill=\"none\"></path> <path d=\"M14 4h6v6h-6z\"></path> <path d=\"M4 14h6v6H4z\"></path> <path d=\"M17 17m-3 0a3 3 0 106 0 3 3 0 10-6 0\"></path> <path d=\"M7 7M4 7a3 3 0 106 0A3 3 0 104 7\"></path></svg></i><h2 class=\"pl-1 uppercase\">New Post</h2></a></div></section></aside></div></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</section><aside class=\"hidden md:flex flex-col md:w-1/3 ml-3 top-0 sticky self-start\"><section class=\"flex flex-col w-full gap-y-3 pl-6 py-3 mt-6 text-slate-800 dark:text-slate-200\"><div class=\"flex flex-row\"><a class=\"flex flex-row\" href=\"/posts\"><i class=\"h-6 w-6 flex-none\"><svg xmlns=\"http://www.w3.org/2000/svg\" class=\"icon icon-tabler icon-tabler-category-2\" viewBox=\"0 0 24 24\" stroke-width=\"2\" stroke=\"currentcolor\" fill=\"none\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path stroke=\"none\" d=\"M0 0h24v24H0z\" fill=\"none\"></path> <path d=\"M14 4h6v6h-6z\"></path> <path d=\"M4 14h6v6H4z\"></path> <path d=\"M17 17m-3 0a3 3 0 106 0 3 3 0 10-6 0\"></path> <path d=\"M7 7M4 7a3 3 0 106 0A3 3 0 104 7\"></path></svg></i><h2 class=\"pl-1 uppercase\">New Post</h2></a></div></section></aside></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

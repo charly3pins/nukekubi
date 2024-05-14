@@ -56,7 +56,7 @@ image = "/images/gopher-hiking.svg"
 
 	}
 	posts = append(posts, post)
-	view.Base(view.Posts(posts)).Render(r.Context(), rw)
+	view.Base(view.Admin(posts)).Render(r.Context(), rw)
 }
 
 func join(sep string, s ...string) string {

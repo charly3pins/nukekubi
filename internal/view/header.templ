@@ -1,80 +1,55 @@
 package view
 
 templ header() {
-	<header class="flex flex-none justify-center z-10">
-		<div class="flex flex-row gap justify-between w-full max-w-4xl lg:max-w-5xl h-12 mt-3">
-			<div class="flex-none ml-2 md:ml-0">
-				<a href="/">
-					<img class="h-12 w-12 rounded-full object-cover" src="https://charly3pins.dev/favicon.ico" alt="logo"/>
-				</a>
-			</div>
-			<div class="flex-1"></div>
-			<div class="flex-none">
-				<nav class="h-full static">
-					<button
-						id="navbar-menu-toggle"
-						type="button"
-						class="inline-flex items-center p-2 text-sm text-slate-800 dark:text-slate-200 rounded-lg md:hidden"
-						aria-controls="navbar-menu"
-						aria-expanded="false"
-					>
-						<span class="sr-only">Open main menu</span>
-						<i class="w-8 h-8">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								class="icon icon-tabler icon-tabler-menu-2"
-								viewBox="0 0 24 24"
-								stroke-width="2"
-								stroke="currentcolor"
-								fill="none"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-							>
-								<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-								<path d="M4 6h16"></path>
-								<path d="M4 12h16"></path>
-								<path d="M4 18h16"></path>
-							</svg>
-						</i>
-					</button>
-					<div class="absolute md:static top-16 left-0 right-0 z-50 w-full md:block md:w-auto hidden" id="navbar-menu">
-						<ul
-							class="flex flex-col mx-2 md:mx-0 md:flex-row md:border-0 rounded-sm md:rounded-full px-3 text-base font-medium text-slate-800 dark:text-slate-200 shadow-lg bg-white dark:bg-gray-600 shadow-slate-800/5 dark:shadow-slate-200/5 ring-1 ring-slate-900/5 dark:ring-slate-100/5"
-						>
-							<li><a class="block px-3 py-3 hover:text-emerald-600" href="/blog" title="Post">Blog</a></li>
-							<li>
-								<a class="block px-3 py-3 hover:text-emerald-600" href="/posts" title="Manage posts">Manage posts</a>
-							</li>
-						</ul>
-					</div>
-				</nav>
-			</div>
-			<div class="flex-none md:hidden">
-				<a
-					href="/search/"
-					class="inline-flex items-center p-2 text-sm text-slate-800 dark:text-slate-200 rounded-lg"
-					aria-controls="navbar-menu"
-					aria-expanded="false"
-				>
-					<span class="sr-only">Search</span>
-					<i class="w-8 h-8">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							class="icon icon-tabler icon-tabler-search"
-							viewBox="0 0 24 24"
-							stroke-width="2"
-							stroke="currentcolor"
-							fill="none"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-						>
-							<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-							<path d="M10 10m-7 0a7 7 0 1014 0A7 7 0 103 10"></path>
-							<path d="M21 21l-6-6"></path>
-						</svg>
-					</i>
-				</a>
-			</div>
-		</div>
-	</header>
+<header class="flex flex-none justify-center z-10">
+  <div class="flex flex-row gap justify-between w-full max-w-4xl lg:max-w-5xl h-12 mt-3">
+    <div class="flex-none ml-2 md:ml-0">
+      <a href="/">
+        <img class="h-12 w-12 rounded-full object-cover" src="https://charly3pins.dev/favicon.ico" alt="logo" />
+      </a>
+    </div>
+    <div class="flex-1"></div>
+    <div class="flex-none">
+      <nav class="h-full static">
+        <button id="navbar-menu-toggle" type="button"
+          class="inline-flex items-center p-2 text-sm text-slate-800 dark:text-slate-200 rounded-lg md:hidden"
+          aria-controls="navbar-menu" aria-expanded="false">
+          <span class="sr-only">Open main menu</span>
+          <i class="w-8 h-8">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-menu-2" viewBox="0 0 24 24"
+              stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+              <path d="M4 6h16"></path>
+              <path d="M4 12h16"></path>
+              <path d="M4 18h16"></path>
+            </svg>
+          </i>
+        </button>
+        <div class="absolute md:static top-16 left-0 right-0 z-50 w-full md:block md:w-auto hidden" id="navbar-menu">
+          <ul
+            class="flex flex-col mx-2 md:mx-0 md:flex-row md:border-0 rounded-sm md:rounded-full px-3 text-base font-medium text-slate-800 dark:text-slate-200 shadow-lg bg-white dark:bg-gray-600 shadow-slate-800/5 dark:shadow-slate-200/5 ring-1 ring-slate-900/5 dark:ring-slate-100/5">
+            <li><a class="block px-3 py-3 hover:text-emerald-600" href="/blog" title="Post">Blog</a></li>
+            <li>
+              <a class="block px-3 py-3 hover:text-emerald-600" href="/admin" title="Admin">Admin</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <div class="flex-none md:hidden">
+      <a href="/search/" class="inline-flex items-center p-2 text-sm text-slate-800 dark:text-slate-200 rounded-lg"
+        aria-controls="navbar-menu" aria-expanded="false">
+        <span class="sr-only">Search</span>
+        <i class="w-8 h-8">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" viewBox="0 0 24 24"
+            stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M10 10m-7 0a7 7 0 1014 0A7 7 0 103 10"></path>
+            <path d="M21 21l-6-6"></path>
+          </svg>
+        </i>
+      </a>
+    </div>
+  </div>
+</header>
 }
