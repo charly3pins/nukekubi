@@ -23,27 +23,32 @@ func init() {
 	files, err := os.ReadDir(contentDir)
 	if err != nil {
 		log.Println("error reading directory", err)
+		panic(err)
 	}
 
 	for _, f := range files {
 		openFile, err := os.Open(contentDir + "/" + f.Name())
 		if err != nil {
 			log.Printf("error opening file [%s]: %s", f.Name(), err)
+			panic(err)
 		}
 		content, err := io.ReadAll(openFile)
 		if err != nil {
 			log.Printf("error reading all file [%s]: %s", f.Name(), err)
+			panic(err)
 		}
 		var post model.Post
 		rest, err := frontmatter.Parse(strings.NewReader(string(content)), &post)
 		if err != nil {
 			log.Printf("error parsing content [%s]: %s", string(content), err)
+			panic(err)
 		}
 
 		var buf bytes.Buffer
 		err = goldmark.Convert(rest, &buf)
 		if err != nil {
 			log.Printf("error converting content to goldmark buffer: %s", err)
+			panic(err)
 		}
 		post.Content = view.Unsafe(buf.String())
 		if post.Slug == "" {

@@ -15,6 +15,7 @@ templ Admin(posts []model.Post) {
 						</h2>
 						<div class="my-4 text-large text-slate-600 dark:text-slate-300">{ post.Description }</div>
 						<a href={ templ.URL("/posts/" + post.Slug) }>Editar</a>
+						<a href={ templ.URL("/posts/" + post.Slug) }>Eliminar</a>
 					</article>
 				}
 			</section>

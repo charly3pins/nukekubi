@@ -1,14 +1,18 @@
 package handler
 
 import (
+	"bytes"
+	"io"
 	"log"
 	"net/http"
 	"os"
 	"strings"
 	"text/template"
 
+	"github.com/adrg/frontmatter"
 	"github.com/charly3pins/nukekubi/internal/model"
 	"github.com/charly3pins/nukekubi/internal/view"
+	"github.com/yuin/goldmark"
 )
 
 func PostNewForm(rw http.ResponseWriter, r *http.Request) {
@@ -24,7 +28,7 @@ func PostNew(rw http.ResponseWriter, r *http.Request) {
 		Date:        r.FormValue("date"),
 		Slug:        r.FormValue("slug"),
 		ContentRaw:  r.FormValue("content"),
-		Tags:        []string{"go", "htmx", "templ"},
+		Tags:        []string{"go", "htmx", "templ"}, // TODO: parse Tags
 	}
 	mdTmpl := `
 +++
@@ -53,12 +57,45 @@ image = "/images/gopher-hiking.svg"
 		log.Println("error generating template post", err)
 		rw.Write([]byte("Internal server error"))
 		rw.WriteHeader(http.StatusInternalServerError)
-
 	}
-	posts = append(posts, post)
+	postMD, err := readMarkdown(file)
+	if err != nil {
+		log.Println("error generating template post", err)
+		rw.Write([]byte("Internal server error"))
+		rw.WriteHeader(http.StatusInternalServerError)
+	}
+	posts = append(posts, *postMD)
 	view.Base(view.Admin(posts)).Render(r.Context(), rw)
 }
 
-func join(sep string, s ...string) string {
-	return strings.Join(s, sep)
+func readMarkdown(fi *os.File) (*model.Post, error) {
+	f, err := os.Open(fi.Name())
+	if err != nil {
+		log.Printf("error opening file [%s]: %s", fi.Name(), err)
+		return nil, err
+	}
+	content, err := io.ReadAll(f)
+	if err != nil {
+		log.Printf("error reading all file [%s]: %s", f.Name(), err)
+		return nil, err
+	}
+	var post model.Post
+	rest, err := frontmatter.Parse(strings.NewReader(string(content)), &post)
+	if err != nil {
+		log.Printf("error parsing content [%s]: %s", string(content), err)
+		return nil, err
+	}
+
+	var buf bytes.Buffer
+	err = goldmark.Convert(rest, &buf)
+	if err != nil {
+		log.Printf("error converting content to goldmark buffer: %s", err)
+		return nil, err
+	}
+	post.Content = view.Unsafe(buf.String())
+	if post.Slug == "" {
+		post.Slug = strings.Split(f.Name(), ".")[0]
+		return nil, err
+	}
+	return &post, nil
 }
